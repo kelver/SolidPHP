@@ -18,11 +18,25 @@ abstract class Tag implements TagsContract
     public function __construct()
     {
         $this->attrs = func_get_args();
+
+        foreach ($this->attrs as &$value){
+            if(is_a($value, '\Solid\Html\Tag\TagsContract')){
+                $value = (String)$value;
+            }
+        }
+
         $this->validate();
     }
 
-    public function attributes(Attributes $attribute)
+    public function attributes($attributes)
     {
-        $this->optional_attrs = $attribute;
+        if(is_array($attributes)){
+            $attributes = new Attributes($attributes);
+        }
+        if(!is_a($attributes, 'Solid\Html\Attributes')){
+            throw new \Exception('$attributes must be a Solid\Html\Attributes instance;');
+        }
+
+        $this->optional_attrs = $attributes;
     }
 }
