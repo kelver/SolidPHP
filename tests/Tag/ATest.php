@@ -8,6 +8,7 @@
 
 namespace Solid\Html\Tag;
 
+use Solid\Html\Attributes;
 
 class ATests extends \PHPUnit_Framework_TestCase
 {
@@ -16,5 +17,19 @@ class ATests extends \PHPUnit_Framework_TestCase
         $a = new A('http://www.example.com.br', "Meu Site");
 
         $this->assertEquals('<a href="http://www.example.com.br">Meu Site</a>', $a);
+    }
+
+    public function testCriarTagAComHrefEAncoraEAtributosHtmlAdicionais()
+    {
+        $optional_attrs = new Attributes([
+            'class' => 'btn btn-default',
+            'data-modal' => '#login',
+            'id' => 'login'
+        ]);
+
+        $a = new A('#', "login");
+        $a->attributes($optional_attrs);
+
+        $this->assertEquals('<a href="#" class="btn btn-default" data-modal="#login" id="login">login</a>', $a);
     }
 }
