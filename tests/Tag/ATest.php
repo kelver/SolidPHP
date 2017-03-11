@@ -14,20 +14,20 @@ class ATests extends \PHPUnit_Framework_TestCase
 {
     public function testCriarTagAComHrefEAncora()
     {
-        $a = new A('http://www.example.com.br', "Meu Site");
+        $a = new A(new Attributes, 'http://www.example.com.br', "Meu Site");
 
         $this->assertEquals('<a href="http://www.example.com.br">Meu Site</a>', $a);
     }
 
     public function testCriarTagAComHrefEAncoraEAtributosHtmlAdicionais()
     {
-        $optional_attrs = new Attributes([
+        $optional_attrs = [
             'class' => 'btn btn-default',
             'data-modal' => '#login',
             'id' => 'login'
-        ]);
+        ];
 
-        $a = new A('#', "login");
+        $a = new A(new Attributes, '#', "login");
         $a->attributes($optional_attrs);
 
         $this->assertEquals('<a href="#" class="btn btn-default" data-modal="#login" id="login">login</a>', $a);

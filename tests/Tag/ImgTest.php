@@ -14,17 +14,17 @@ class ImgTests extends \PHPUnit_Framework_TestCase
 {
     public function testCriarTagImgComSrc()
     {
-        $img = new Img('img/photo.png');
+        $img = new Img(new Attributes, 'img/photo.png');
         $this->assertEquals('<img src="img/photo.png">', $img);
     }
 
     public function testCriarTagImgComSrcEAtributosAdicionais()
     {
-        $attributes = new Attributes([
+        $attributes = [
             'class'=>'img-responsive'
-        ]);
+        ];
 
-        $img = new Img('img/photo.png');
+        $img = new Img(new Attributes, 'img/photo.png');
         $img->attributes($attributes);
         $this->assertEquals('<img src="img/photo.png">', $img);
     }
